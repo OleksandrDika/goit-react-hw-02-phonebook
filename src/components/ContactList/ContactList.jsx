@@ -1,5 +1,6 @@
 import React from 'react';
 import { ButtonList, Item } from './ContactList.styled';
+import PropTypes from 'prop-types';
 
 export const ContactList = ({ visibleContact, deleteContact }) => {
   return (
@@ -16,4 +17,9 @@ export const ContactList = ({ visibleContact, deleteContact }) => {
       })}
     </ul>
   );
+};
+
+ContactList.propTypes = {
+  visibleContact: PropTypes.array.isRequired,
+  deleteContact: PropTypes.func.isRequired,
 };
