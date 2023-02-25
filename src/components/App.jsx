@@ -31,11 +31,11 @@ export class App extends Component {
 
   onSubmitForm = data => {
     console.log(data);
-    this.state.contacts.map(contact => {
-      if (contact.name.toLowerCase() === data.name.toLowerCase()) {
-        alert(`${data.name} is already in contacts`);
-      }
-    });
+    // this.state.contacts.map(contact => {
+    //   if (contact.name.toLowerCase() === data.name.toLowerCase()) {
+    //     alert(`${data.name} is already in contacts`);
+    //   }
+    // });
 
     this.setState(prevState => {
       return {
