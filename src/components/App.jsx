@@ -29,29 +29,30 @@ export class App extends Component {
     });
   };
 
-  onSubmitForm = data => {
-    console.log(data);
-
-    // this.state.contacts.map(contact => {
-    //   if (contact.name.toLowerCase() === data.name.toLowerCase()) {
-    //     return alert(`${data.name} is already in contacts`);
-    //   }
-    // });
+  onSubmitForm = newContact => {
+    const sameNames = this.state.contacts.some(
+      contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
+    );
+    if (sameNames) {
+      alert(`${newContact.name}is already in contacts`);
+      return;
+    }
 
     this.setState(prevState => {
       return {
-        contacts: [
-          ...prevState.contacts,
-          { id: nanoid(), name: data.name, number: data.number },
-        ],
+        contacts: [...prevState.contacts, { id: nanoid(), ...newContact }],
       };
     });
   };
 
-  render() {
-    const visibleContact = this.state.contacts.filter(contact =>
+  getVisibleContacts = () => {
+    return this.state.contacts.filter(contact =>
       contact.name.toLowerCase().includes(this.state.filter.toLowerCase())
     );
+  };
+
+  render() {
+    const visibleContact = this.getVisibleContacts();
     return (
       <Conteiner>
         <h2>Phonebook</h2>
@@ -59,11 +60,16 @@ export class App extends Component {
 
         <div>
           <h2>Contacts</h2>
-          <Filter value={this.state.filter} onChange={this.changeFilter} />
-          <ContactList
-            visibleContact={visibleContact}
-            deleteContact={this.deleteContact}
-          />
+          {this.state.contacts.length > 0 && (
+            <Filter value={this.state.filter} onChange={this.changeFilter} />
+          )}
+
+          {this.state.contacts.length > 0 && (
+            <ContactList
+              visibleContact={visibleContact}
+              deleteContact={this.deleteContact}
+            />
+          )}
         </div>
       </Conteiner>
     );

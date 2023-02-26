@@ -5,13 +5,14 @@ export class ContactForm extends Component {
   state = { name: '', number: '' };
 
   inputHundleChange = event => {
-    this.setState({ [event.currentTarget.name]: event.currentTarget.value });
+    const { name, value } = event.currentTarget;
+    this.setState({ [name]: value });
   };
 
   hundleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
-    this.props.onFormSubmit(this.state);
+
+    this.props.onFormSubmit({ ...this.state });
     this.reset();
   };
 
